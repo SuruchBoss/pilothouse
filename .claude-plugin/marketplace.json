@@ -1,0 +1,14 @@
+{
+  "name": "pilothouse",
+  "description": "A workflow skill for running several Claude Code cloud sessions as one team",
+  "owner": {
+    "name": "Suruch Chakrapeesirisuk"
+  },
+  "plugins": [
+    {
+      "name": "pilothouse",
+      "source": "./plugins/pilothouse",
+      "description": "Roles, messaging rules, handoff template, and room rotation"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "pilothouse",
+  "displayName": "Pilothouse",
+  "version": "0.1.0",
+  "description": "Roles, cross-room messaging rules, handoff template, and room rotation for a team of Claude Code cloud sessions",
+  "author": {
+    "name": "Suruch Chakrapeesirisuk",
+    "url": "https://github.com/SuruchBoss"
+  },
+  "repository": "https://github.com/SuruchBoss/pilothouse",
+  "keywords": [
+    "workflow",
+    "multi-session",
+    "handoff",
+    "roles"
+  ],
+  "license": "Apache-2.0"
+}
