@@ -122,6 +122,8 @@ Both commands are needed: `marketplace add` only adds the catalog, and `claude p
 
 Without a marketplace, copy `plugins/pilothouse/skills/pilothouse/` into `~/.claude/skills/` or your project's `.claude/skills/`.
 
+The skill is also listed, free, on [Agensi](https://www.agensi.io/skills/pilothouse). Installing through Agensi has not been tested by the author; the steps on this page are the tested path.
+
 Then start a new session. A skill installed during a session is not available in that same session.
 
 ### 2. Get starter prompts for your rooms

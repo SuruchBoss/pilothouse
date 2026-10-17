@@ -122,6 +122,8 @@ claude plugin install pilothouse@pilothouse
 
 ถ้าไม่ใช้ marketplace ให้คัดลอก `plugins/pilothouse/skills/pilothouse/` ไปไว้ใน `~/.claude/skills/` หรือ `.claude/skills/` ของโปรเจกต์
 
+skill นี้ลงรายการฟรีบน [Agensi](https://www.agensi.io/skills/pilothouse) ด้วย การติดตั้งผ่าน Agensi ผู้เขียนยังไม่ได้ทดสอบ วิธีในหน้านี้คือทางที่ทดสอบแล้ว
+
 จากนั้นเปิด session ใหม่ skill ที่ติดตั้งระหว่าง session ใช้ใน session เดิมไม่ได้
 
 ### 2. ขอ prompt เริ่มต้นของแต่ละห้อง
