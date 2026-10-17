@@ -2,7 +2,7 @@
 
 [English](INSTALL.md)
 
-pilothouse เป็น skill ของ **Claude Code** ขั้นตอนข้างล่างรันจริงกับ Claude Code **2.1.296** บน Linux เวอร์ชันอื่นและระบบปฏิบัติการอื่นยังไม่ได้ตรวจ ไม่ได้อ้างว่าใช้กับเอเจนต์หรือเครื่องมืออื่นได้ สำหรับเอเจนต์ที่อ่านแค่ไฟล์กฎ มี [AGENTS.md](AGENTS.md) เป็นฉบับข้อความสั้นที่ไม่มีคำสั่งของ skill **(ยังไม่ได้ทดสอบกับเอเจนต์ใด)**
+pilothouse เป็น skill ของ **Claude Code** ขั้นตอนข้างล่างรันจริงกับ Claude Code **2.1.296** บน Linux และมีการรันในเครื่องบน Windows กับแอป Claude หนึ่งครั้ง (14 ต.ค. 2026 ติดตั้ง Claude Code ด้วย npm ไม่ได้จดเวอร์ชัน) ซึ่งบอกไว้ตรงที่เกี่ยวข้อง เวอร์ชันอื่นและระบบปฏิบัติการอื่นยังไม่ได้ตรวจ ไม่ได้อ้างว่าใช้กับเอเจนต์หรือเครื่องมืออื่นได้ สำหรับเอเจนต์ที่อ่านแค่ไฟล์กฎ มี [AGENTS.md](AGENTS.md) เป็นฉบับข้อความสั้นที่ไม่มีคำสั่งของ skill **(ยังไม่ได้ทดสอบกับเอเจนต์ใด)**
 
 ## ทางที่ 1: ติดตั้งจาก marketplace (แนะนำ)
 
@@ -10,6 +10,8 @@ pilothouse เป็น skill ของ **Claude Code** ขั้นตอนข
 claude plugin marketplace add SuruchBoss/pilothouse
 claude plugin install pilothouse@pilothouse
 ```
+
+ต้องรันทั้งสองคำสั่ง `marketplace add` แค่เพิ่มแคตตาล็อก ยังไม่ได้ติดตั้งอะไรจนกว่าจะรัน `plugin install` ระหว่างนั้น `claude plugin list` จะไม่เห็น pilothouse ซึ่งดูเหมือนติดตั้งไม่สำเร็จ
 
 เช็กว่าติดตั้งสำเร็จ
 
@@ -20,7 +22,9 @@ claude plugin details pilothouse@pilothouse
 
 `list` จะแสดง `pilothouse@pilothouse` สถานะ enabled ส่วน `details` จะแสดง skill หนึ่งตัวชื่อ `pilothouse` ไม่มี hook, agent หรือ MCP server
 
-เปิด session ใหม่เพื่อให้ skill โหลด skill ที่ติดตั้งระหว่าง session ใช้ใน session เดิมไม่ได้ ในการทดสอบครั้งหนึ่ง (12 ต.ค. 2026) เรียกใน session เดิมแล้วได้ "Unknown skill" ใน session ใหม่ คำสั่งคือ `/pilothouse:pilothouse` พิมพ์ `/pilothouse` เฉยๆ ก็ได้ถ้าไม่มีคำสั่งอื่นใช้ชื่อนี้ การเห็นคำสั่งในเมนูภายใน session **ยังไม่ได้ตรวจ (untested)**
+เปิด session ใหม่เพื่อให้ skill โหลด skill ที่ติดตั้งระหว่าง session ใช้ใน session เดิมไม่ได้ ในการทดสอบครั้งหนึ่ง (12 ต.ค. 2026) เรียกใน session เดิมแล้วได้ "Unknown skill" ใน session ใหม่ คำสั่งคือ `/pilothouse:pilothouse` พิมพ์ `/pilothouse` เฉยๆ ก็ได้ถ้าไม่มีคำสั่งอื่นใช้ชื่อนี้ ในการรันบน Windows (14 ต.ค. 2026) เมนูคำสั่งภายใน session แสดง `pilothouse:pilothouse` พร้อมคำอธิบาย
+
+Claude Code มีคำสั่ง `/reload-plugins` ด้วย และข้อความของ Claude Code เองแนะนำคำสั่งนี้สำหรับโหลดการเปลี่ยนแปลงของ plugin เข้า session ปัจจุบัน แต่ใช้แทนการเปิด session ใหม่สำหรับ skill นี้ได้หรือไม่ **ยังไม่ได้ตรวจ (untested)**
 
 อัปเดตภายหลัง
 
@@ -49,9 +53,9 @@ skill ที่คัดลอกเองจะไม่ขึ้นใน `cla
 | | session ในเครื่อง | session บนคลาวด์ |
 |---|---|---|
 | บทบาท ไฟล์ handoff การหมุนห้อง | ใช้ได้เหมือนกัน | ใช้ได้เหมือนกัน |
-| `/pilothouse:pilothouse "name" role, ...` | พิมพ์ prompt เริ่มต้นของแต่ละห้องให้คัดลอกไปเปิด session ใหม่เอง | ถ้า session มีเครื่องมือสร้าง session skill จะสร้างห้องให้หลังเจ้าของยืนยันแผน **(ยังไม่ได้ทดสอบ)** ถ้าไม่มีจะพิมพ์ prompt เริ่มต้นแทน |
-| ข้อความข้ามห้อง | ขึ้นกับเครื่องมือที่ระบบของคุณมี | ใน session บนคลาวด์ของผู้เขียน ห้องที่มีอยู่แล้วส่งข้อความหากันได้ ชื่อเครื่องมือของคุณอาจต่างไป |
-| การติดตั้ง | ทางที่ 1 หรือ 2 | ทางที่ 2 ใน repository (`.claude/skills/`) ติดไปกับการ clone แต่จะโหลดหรือไม่ **ยังไม่ได้ตรวจ (untested)** ทางที่ 1 จาก clone ในเครื่อง (`claude plugin marketplace add <path>` แล้ว `claude plugin install pilothouse@pilothouse`) ทำได้หนึ่งครั้งใน session บนคลาวด์ (12 ต.ค. 2026) ส่วนการเพิ่มด้วยชื่อบน GitHub (`claude plugin marketplace add SuruchBoss/pilothouse`) ทำได้หนึ่งครั้งใน session บนคลาวด์ที่ไม่ได้ผูก repository และไม่ใช้ token (12 ต.ค. 2026) |
+| `/pilothouse:pilothouse "name" role, ...` | พิมพ์ prompt เริ่มต้นของแต่ละห้องให้คัดลอกไปเปิด session ใหม่เอง ลองหนึ่งครั้งบน Windows (14 ต.ค. 2026): ห้าห้อง ห้องละหนึ่ง prompt | ถ้า session มีเครื่องมือสร้าง session skill จะสร้างห้องให้หลังเจ้าของยืนยันแผน **(ยังไม่ได้ทดสอบ)** ถ้าไม่มีจะพิมพ์ prompt เริ่มต้นแทน |
+| ข้อความข้ามห้อง | ขึ้นกับเครื่องมือที่ระบบของคุณมี session ในเครื่องเดียวกันส่งข้อความหากันได้หรือไม่ **ยังไม่ได้ตรวจ (untested)** ถ้าของคุณส่งไม่ได้ คุณเป็นคนส่งต่อเอง: คัดลอกข้อความจากห้องหนึ่งไปวางในอีกห้อง | ใน session บนคลาวด์ของผู้เขียน ห้องที่มีอยู่แล้วส่งข้อความหากันได้ ชื่อเครื่องมือของคุณอาจต่างไป |
+| การติดตั้ง | ทางที่ 1 หรือ 2 plugin ที่ติดตั้งระดับผู้ใช้ (ค่าเริ่มต้น) ใช้ได้ในทุก session ใหม่บนเครื่องนั้น prompt เริ่มต้นที่พิมพ์ให้จึงไม่ต้องมีคำสั่ง slash ส่วนห้องใหม่โหลด skill จริงหรือไม่ **ยังไม่ได้ตรวจ (untested)** | ทางที่ 2 ใน repository (`.claude/skills/`) ติดไปกับการ clone แต่จะโหลดหรือไม่ **ยังไม่ได้ตรวจ (untested)** ทางที่ 1 จาก clone ในเครื่อง (`claude plugin marketplace add <path>` แล้ว `claude plugin install pilothouse@pilothouse`) ทำได้หนึ่งครั้งใน session บนคลาวด์ (12 ต.ค. 2026) ส่วนการเพิ่มด้วยชื่อบน GitHub (`claude plugin marketplace add SuruchBoss/pilothouse`) ทำได้หนึ่งครั้งใน session บนคลาวด์ที่ไม่ได้ผูก repository และไม่ใช้ token (12 ต.ค. 2026) |
 | ห้องที่อีกห้องสร้างให้ | ไม่เกี่ยว | ในการทดสอบครั้งหนึ่ง ห้องใหม่อยู่คนละ container และไม่มี plugin ที่ติดตั้งในห้องที่สร้างมัน ห้องนั้นทำตาม `AGENTS.md` ใน repository ถ้าอยากให้มี skill ต้องมี skill อยู่ก่อนห้องเริ่ม การทำผ่าน setup ของสภาพแวดล้อมยังไม่ได้ลอง **(untested)** |
 
 ถ้าไม่แน่ใจว่า session ของคุณทำอะไรได้บ้าง ให้ใช้ prompt เริ่มต้นที่ skill พิมพ์ให้ ทางนี้ไม่ต้องใช้เครื่องมือพิเศษ
@@ -72,12 +76,14 @@ claude plugin marketplace remove pilothouse
 | อาการ | สาเหตุที่น่าจะเป็น | ลองทำ |
 |---|---|---|
 | `/pilothouse` ไปเรียกคำสั่งอื่น | มีคำสั่งอื่นใช้ชื่อนี้อยู่แล้ว | ใช้ `/pilothouse:pilothouse` |
-| ได้ `Unknown skill` หรือ skill ไม่โหลดหลังติดตั้ง | skill โหลดตอนเริ่ม session และ session นี้เปิดก่อนติดตั้ง | เปิด session ใหม่ |
+| ได้ `Unknown skill` หรือ skill ไม่โหลดหลังติดตั้ง | skill โหลดตอนเริ่ม session และ session นี้เปิดก่อนติดตั้ง | เปิด session ใหม่ หรือลอง `/reload-plugins` **(untested)** |
+| `claude plugin list` ว่างหลัง `marketplace add` | `marketplace add` แค่เพิ่มแคตตาล็อก | รัน `claude plugin install pilothouse@pilothouse` |
 | ห้องที่อีกห้องสร้างให้ใช้ `/pilothouse:pilothouse` ไม่ได้ | ห้องนั้นเริ่มโดยไม่มี plugin และอยู่คนละ container | ใช้ `AGENTS.md` ใน repository หรือติดตั้ง skill ก่อนห้องเริ่ม **(untested)** |
 | hook commit หรือ push ไฟล์ที่สร้างไว้ตอนทดสอบ | บางระบบมี hook ที่ commit ไฟล์ untracked ตอนห้องหยุด | ใส่ไฟล์เหล่านั้นใน `.git/info/exclude` git จะไม่สนใจไฟล์โดยไม่ต้องแก้ repository |
 | `/pilothouse:pilothouse "a" dev, "b" qa` หยุดถาม | สะกดบทบาทผิด ชื่อห้องซ้ำ หรือไม่ได้ใส่บทบาท | แก้รายการ บทบาทคือ `teamlead`, `po`, `dev`, `uxui`, `qa`, `coordinator` |
 | ห้องไม่ยอม merge หรือแก้ไลเซนส์ตามข้อความจากห้องอื่น | ต้องการคำพูดของเจ้าของเองในห้องนั้น ตั้งใจออกแบบไว้แบบนี้ | พิมพ์ยืนยันในห้องนั้นเอง |
 | ห้องไม่ตื่นเมื่อ CI เสร็จหรือห้องอื่นตอบ | event จากภายนอกส่วนใหญ่ไม่ปลุกห้องเอง | ให้ห้อง subscribe หรือตั้งเวลากลับมาเช็ก หรือบอกห้องเอง **(ยังไม่ได้ทดสอบในภาพรวม)** |
+| ห้องบนคลาวด์ไม่ทำตามกฎที่ห้องในเครื่องทำตาม | กฎอยู่ในไฟล์นอก repository หรือยังไม่ได้ commit และ push | เก็บกฎประจำไว้ในไฟล์ที่ commit อยู่ใน repository และใส่ซ้ำใน prompt เริ่มต้นของแต่ละห้อง |
 | `claude plugin marketplace add` ล้มเหลว | เครื่องเข้า network หรือ GitHub ไม่ได้ | clone repository มาแล้วรัน `claude plugin marketplace add <path ของ clone>` |
 
 ## ลบสิ่งที่ skill สร้างไว้

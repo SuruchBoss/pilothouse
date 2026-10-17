@@ -4,6 +4,10 @@ A Claude Code skill for running several sessions ("rooms") as one team. Each roo
 
 The owner talks to one room in plain words. That room turns the words into work orders, sends them to the right rooms, and reports back. Decisions that matter (merging, licensing, anything published, money) stay with the owner.
 
+**Without it:** you open several sessions, type a role into each by hand, carry work between them yourself, and lose track of which room is waiting on which.
+
+**With it:** one command gives each room its role, its handoff file, and a starter prompt. After that you talk to one room in plain words; it writes the work orders, sends them to the right rooms, and reports back where each piece stands.
+
 ```mermaid
 %%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "wrappingWidth": 400, "padding": 24, "diagramPadding": 48}}}%%
 flowchart LR
@@ -114,6 +118,8 @@ claude plugin marketplace add SuruchBoss/pilothouse
 claude plugin install pilothouse@pilothouse
 ```
 
+Both commands are needed: `marketplace add` only adds the catalog, and `claude plugin list` does not show pilothouse until `plugin install` has run.
+
 Without a marketplace, copy `plugins/pilothouse/skills/pilothouse/` into `~/.claude/skills/` or your project's `.claude/skills/`.
 
 Then start a new session. A skill installed during a session is not available in that same session.
@@ -133,6 +139,10 @@ time on a branch, run the checks CI runs before pushing, and report
 decisions the ticket did not specify. Do not start work the PO has not
 queued, and do not merge.
 ```
+
+The prompts carry no slash command. On a local machine, a plugin installed for your user is available to every new session there anyway.
+
+In one local run (2026-10-14, Windows, Claude app, five rooms), the skill looked at the repository before writing the prompts. It gave the new handoff files a prefix so they would not overwrite handoff files already there. It noticed that another team of rooms was already working in the repository, advised having those rooms write handoffs before any new room replaced them, and said that the run only printed prompts and changed no files or sessions. One run.
 
 If the session can create sessions (for example a Claude Code cloud session), the skill instead checks for rooms with the same name, shows you a plan, waits for your confirmation, and then creates the rooms. **(untested)** In one test, a room created this way did not have the plugin installed in the room that created it; see [INSTALL.md](INSTALL.md#cloud-sessions-and-local-sessions).
 
@@ -435,6 +445,7 @@ The rules that matter most, from problems the author ran into:
 - **One writer per file.** Rooms writing the same file at once caused merge conflicts, removed rows coming back, and commits that never reached the remote. Each role writes only its own file; the team lead writes the index.
 - **Ticket status does not belong in memory.** PRs, test counts, and queue order live in the backlog, tickets, and handoff files.
 - **No secrets or personal data.** Memory is loaded and pushed; if the repository is public, so is the memory.
+- **Standing rules go in a committed file.** In one local run the team lead wrote the owner's standing rules (for example "all work on one branch; never touch main") into a rules file every room reads first, and into each room's starter prompt. That works only for rooms that can see the file: a file outside the repository, or one not committed and pushed, is invisible to cloud rooms and to rooms working from a fresh clone.
 - **"Noted" means on the remote.** After writing, check `git log origin/<branch>..HEAD` prints nothing. Writes made by a script may skip the hooks that push, and a failed push can be silent. Other rooms see only what is committed and pushed.
 
 This is how the author keeps memory in practice, but the multi-file layout is written up here for the first time and has not been tested as written. Details: `references/memory.md`, templates in `templates/`, and a worked example in [`examples/08-memory.md`](examples/08-memory.md) (hypothetical).
@@ -475,15 +486,17 @@ The skill is instructions only. It adds no hooks, MCP servers, or scripts.
 
 ## Limits and untested parts
 
-The workflow has been used day to day by the author on real projects. The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Test results are from 2026-10-12 with Claude Code 2.1.296. Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
+The workflow has been used day to day by the author on real projects. The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Most test results are from 2026-10-12 with Claude Code 2.1.296 on Linux. Rows dated 2026-10-14 come from one local run on Windows with the Claude app (Claude Code installed with npm, version not recorded). Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
 
 | Part | Status |
 |---|---|
-| Creating rooms from a list (`launch.md`, path 1) | Untested. Printing starter prompts (path 2) needs no special tools. |
-| How quotes and commas arrive in the skill's arguments | Untested through the skill. Applying the parsing rules by hand to `"test-dev" dev, "test-qa" qa` gave the right result once. |
+| Creating rooms from a list (`launch.md`, path 1) | Untested. Printing starter prompts (path 2) needs no special tools; it worked once (2026-10-14, local, Windows). |
+| How quotes and commas arrive in the skill's arguments | Tried once through the skill (2026-10-14, Windows, Claude app): a list of five rooms was split correctly, names and roles were checked, and a name spelled two different ways was pointed out and used as typed. Exactly how the quotes arrived was not recorded. |
 | Installing from a local clone (`marketplace add <path>`, `install pilothouse@pilothouse`) | Worked once in a cloud session (2026-10-12, v0.1.0) |
 | Installing from GitHub (`marketplace add SuruchBoss/pilothouse`, `install pilothouse@pilothouse`) | Worked once (2026-10-12, after the rename, repository public): a cloud session with no repository attached and no token installed v0.1.0 and it showed as enabled. One run. |
-| Using the skill in the session where it was installed | Does not work: "Unknown skill". Start a new session. |
+| Using the skill in the session where it was installed | Does not work: "Unknown skill". Start a new session. Whether `/reload-plugins` avoids that: untested. |
+| The command in the in-session menu | Seen once (2026-10-14, Windows, Claude app): `pilothouse:pilothouse` with its description |
+| `claude plugin list` after `marketplace add` only | Empty, as expected: `plugin install` is a separate step (2026-10-14) |
 | A room created by another room having the skill | It did not: the new room ran in its own container without the plugin. It followed `AGENTS.md` from the repository. Installing the skill before the room starts: untested. |
 | A team lead turning a plain request into a work order and sending it | Tried once, with the rules read from the reference files rather than loaded through `/pilothouse:pilothouse`: the order had every field, the team lead asked the owner one question, and the receiving room replied within tens of seconds. The Authority field said "team lead proposal" on an order the owner had asked for, sent straight to Dev; the receiving room caught it, and `prompt-translation.md` now says to write the real source. |
 | A team lead receiving "merge เลย" ("merge it") | Tried once (2026-10-12), with the words relayed by another room, not typed by the owner: no work order, nothing sent, no merge. It asked which pull request (repository and number) and said the owner must confirm in the room that merges. One run; not proof that it can never slip. |
@@ -495,6 +508,7 @@ The workflow has been used day to day by the author on real projects. The table 
 | Cross-room memory with the layout in `references/memory.md` | The author's working method, but this multi-file layout has not been tested as written. One finding: a room working from a fresh clone could not see a `memory/index.md` that was not committed. Whether a new room reads the index at start: untested. |
 | Translate, split, summarize with anyone else's rooms | Untested; it is the author's working method and has not been measured |
 | Existing rooms messaging each other and replying | Observed working in the author's cloud sessions |
+| Local sessions on one machine messaging each other | Untested. If they cannot, the owner carries messages between rooms. |
 | `send_later` scheduling a message to the same room | Observed working once |
 
 Tool names (`list_sessions`, `send_message`, `create_session`, `send_later`, `subscribe_pr_activity`) are those in the author's environment. They may differ in yours.
@@ -522,7 +536,7 @@ No. A new room starts with everything your environment loads into every session,
 Not in the author's test. The new room ran in its own container and did not have the plugin installed in the room that created it. It did follow `AGENTS.md`, because that file is in the repository. To give it the skill, the skill has to be there before the room starts; how to do that in your environment was not tested.
 
 **Does it work without cloud sessions?**
-Yes, for roles, handoff files, and rotation. Without a session-creation tool the skill prints starter prompts for you to paste. Cross-room messaging depends on the tools your environment provides.
+Yes, for roles, handoff files, and rotation. Without a session-creation tool the skill prints starter prompts for you to paste. Cross-room messaging depends on the tools your environment provides. Whether local sessions can message each other was not checked; if they cannot, you carry messages between rooms yourself.
 
 ## Contributing
 
