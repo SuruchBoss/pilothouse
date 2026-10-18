@@ -1,7 +1,7 @@
 {
   "name": "pilothouse",
   "displayName": "Pilothouse",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Roles, cross-room messaging rules, handoff template, and room rotation for a team of Claude Code cloud sessions",
   "author": {
     "name": "Suruch Chakrapeesirisuk",

@@ -12,7 +12,8 @@ When installed as a plugin the full command is `/pilothouse:pilothouse`; the bar
 
 The list is a comma-separated sequence of pairs. Each pair is a room name followed by a role.
 
-- **Room name**: written in double quotes by the owner. Claude Code splits arguments with shell-style quoting, so the quotes may already be removed by the time the list reaches this skill. Accept a name with or without quotes, as long as it is a single word (letters, digits, `-`, `_`, `.`). **(untested: exactly how quotes and commas arrive in `$ARGUMENTS` was not checked.)**
+- **Room name**: written in double quotes by the owner. Claude Code splits arguments with shell-style quoting, so the quotes may already be removed by the time the list reaches this skill. Accept a name with or without quotes, as long as it is a single word (letters, digits, `-`, `_`, `.`). In one run (2026-10-14, Windows, Claude app) a list of five rooms was split correctly; exactly how the quotes arrived in `$ARGUMENTS` was not recorded.
+- **Two spellings of one name**: if two names differ only in a way that looks like a typo (one letter, case, a missing hyphen), point it out and use each name exactly as typed. Do not correct it silently.
 - **Role**: one of `teamlead`, `po`, `dev`, `uxui`, `qa`, or `coordinator`. Case does not matter (`Dev`, `DEV`, `dev` are the same).
 
 Stop and ask the owner, without creating or printing anything, when:
@@ -35,6 +36,18 @@ Do not guess what the owner meant. Show the part that failed and ask.
 | `"room01" dev, "room01" qa` | stop: `room01` is used twice |
 | `"room01-dev"` | stop: no role given for `room01-dev` |
 | `dev qa` | stop: cannot tell names from roles |
+
+## Before either path: look at the repository
+
+Read before writing anything. This step changes no files and starts no rooms.
+
+1. **Find the handoff files already there.** Look for a handoff directory (for example `docs/handoff/`) and for files that already hold a role's status. A new room must not overwrite a file another room still uses.
+2. **Choose handoff paths that do not collide.** Use the repository's existing handoff directory if it has one, otherwise `docs/handoff/<role>.md`. If that path is taken by a room that is still working, give the new rooms' files a prefix (for example `docs/handoff/shop-dev.md`) and say why.
+3. **Notice an existing team.** If handoff files, a rooms index, or memory files show that other rooms already work in this repository, say so before going on. Ask whether the new rooms replace them or work beside them. If they replace them, advise that each old room writes its handoff first ([rotation.md](rotation.md)), so nothing it knows is lost.
+4. **Standing rules.** If the repository has a rules file every room reads (for example `CLAUDE.md` or `AGENTS.md`), point the starter prompts at it. If the owner gives a standing rule now ("all work on one branch"), propose writing it into that file and into every starter prompt; a rule that lives only in this conversation is invisible to the new rooms.
+5. **Say what this run changed.** End the report with what was created or printed, and state plainly that nothing else was touched.
+
+In the one local run where this was seen (2026-10-14, Windows, five rooms), the skill did steps 1 to 3 and 5 on its own, before these steps were written down. Step 4 is how the team lead in that run handled a standing rule. Written as instructions here for the first time **(untested as written)**.
 
 ## Path 1: the environment can create rooms **(untested)**
 
@@ -59,7 +72,7 @@ Do not choose a permission mode that waits for an approval no one is watching. D
 
 Applies when running on a local machine or anywhere without a session-creation tool. Print, for each room, its name and a starter prompt the owner can paste into a new session. Do not create anything.
 
-Starter prompts (replace `<repo>` and `<handoff path>`):
+Starter prompts (replace `<repo>`, and `<handoff path>` with the path chosen in [Before either path](#before-either-path-look-at-the-repository)). If the repository has a rules file every room reads, add "Read <rules file> first." to each prompt:
 
 **teamlead**
 ```

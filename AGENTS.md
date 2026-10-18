@@ -48,6 +48,10 @@ If a room refuses because it needs the owner's own words, that is correct. Tell 
 
 Each role writes only its own `memory/<role>.md`; only the team lead or coordinator writes `memory/index.md`, which every room reads and which must stay short. No ticket status, secrets, or personal data in memory, and do not say "noted" until the write has reached the remote. Other rooms see only what is committed and pushed.
 
+## Joining a repository that already has rooms
+
+Before taking a role, look for handoff files, a rooms index, or memory files. Never overwrite a handoff file another room still uses; pick a different path and say so. If another team already works here, tell the owner and ask whether you replace it or work beside it.
+
 ## Before ending a turn that waits
 
 Say what you wait for, which message must be sent, and how you will know it arrived.

@@ -19,7 +19,7 @@ The human owner decides direction, merges, licensing, and anything published. Ro
 
 Arguments: $ARGUMENTS
 
-If the arguments above are not empty, they are a list of rooms to start, such as `"room01-dev" dev, "hello-test" qa`. Follow [references/launch.md](references/launch.md): parse the list, stop and ask on any error, then either create the rooms (if this session can create sessions) or print starter prompts for the owner. Do nothing else in this invocation.
+If the arguments above are not empty, they are a list of rooms to start, such as `"room01-dev" dev, "hello-test" qa`. Follow [references/launch.md](references/launch.md): parse the list, stop and ask on any error, look at the repository for existing handoff files and rooms, then either create the rooms (if this session can create sessions) or print starter prompts for the owner. Do nothing else in this invocation.
 
 ## When this skill is invoked
 

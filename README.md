@@ -144,7 +144,7 @@ queued, and do not merge.
 
 The prompts carry no slash command. On a local machine, a plugin installed for your user is available to every new session there anyway.
 
-In one local run (2026-10-14, Windows, Claude app, five rooms), the skill looked at the repository before writing the prompts. It gave the new handoff files a prefix so they would not overwrite handoff files already there. It noticed that another team of rooms was already working in the repository, advised having those rooms write handoffs before any new room replaced them, and said that the run only printed prompts and changed no files or sessions. One run.
+In one local run (2026-10-14, Windows, Claude app, five rooms), the skill looked at the repository before writing the prompts. It gave the new handoff files a prefix so they would not overwrite handoff files already there. It noticed that another team of rooms was already working in the repository, advised having those rooms write handoffs before any new room replaced them, and said that the run only printed prompts and changed no files or sessions. One run. Since 0.2.0 these steps are written into `references/launch.md` as instructions ("Before either path: look at the repository"), so the skill does them on purpose rather than by chance; that written form has not been run yet.
 
 If the session can create sessions (for example a Claude Code cloud session), the skill instead checks for rooms with the same name, shows you a plan, waits for your confirmation, and then creates the rooms. **(untested)** In one test, a room created this way did not have the plugin installed in the room that created it; see [INSTALL.md](INSTALL.md#cloud-sessions-and-local-sessions).
 
@@ -472,6 +472,7 @@ Also in the repository:
 | File | Purpose |
 |---|---|
 | [`INSTALL.md`](INSTALL.md) | Install, check, update, and uninstall; cloud versus local sessions; common problems |
+| [`CHANGELOG.md`](CHANGELOG.md) | What changed in each version |
 | [`AGENTS.md`](AGENTS.md) | One-page text version of the rules for agents that read rule files without the skill (no `/pilothouse` command) |
 | [`examples/`](examples/) | Eight worked examples in English and Thai, adapted from the author's practice with details removed |
 
@@ -493,6 +494,7 @@ The workflow has been used day to day by the author on real projects. The table 
 | Part | Status |
 |---|---|
 | Creating rooms from a list (`launch.md`, path 1) | Untested. Printing starter prompts (path 2) needs no special tools; it worked once (2026-10-14, local, Windows). |
+| Looking at the repository before printing prompts (existing handoff files, prefixed names, an existing team) | Seen once without instructions (2026-10-14, Windows). Written into `launch.md` in 0.2.0; the written version is untested. |
 | How quotes and commas arrive in the skill's arguments | Tried once through the skill (2026-10-14, Windows, Claude app): a list of five rooms was split correctly, names and roles were checked, and a name spelled two different ways was pointed out and used as typed. Exactly how the quotes arrived was not recorded. |
 | Installing from a local clone (`marketplace add <path>`, `install pilothouse@pilothouse`) | Worked once in a cloud session (2026-10-12, v0.1.0) |
 | Installing from GitHub (`marketplace add SuruchBoss/pilothouse`, `install pilothouse@pilothouse`) | Worked once (2026-10-12, after the rename, repository public): a cloud session with no repository attached and no token installed v0.1.0 and it showed as enabled. One run. |
