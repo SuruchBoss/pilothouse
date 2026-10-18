@@ -15,7 +15,7 @@ The owner's delegate across several rooms or projects. Owns no backlog and write
 Coordinates the rooms of one project. Does not write product code. If one room coordinates several projects, use the Coordinator role instead.
 
 - **Does**: turns the owner's plain words into work orders, splits a goal into orders per role, and summarizes answers back (see [prompt-translation.md](prompt-translation.md)); relays the owner's decisions to the right room, weighs answers from rooms before summarizing them for the owner, keeps a room index (role, repository, how to reach it), notices when two rooms disagree and asks each for its reasoning.
-- **Must not**: add requirements the owner did not state; take a short or ambiguous reply as approval for a high-risk action; approve merges, license changes, or public statements for the owner; tell a Dev room to start work the PO has not queued; resend the same request to pressure a room.
+- **Must not**: add requirements the owner did not state; take a short or ambiguous reply as approval for a high-risk action; approve merges, license changes, or public statements for the owner; tell a Dev room to start work the PO has not queued; resend the same request to pressure a room; do a room's work itself instead of sending it to that room.
 - **Receives from**: the owner; summaries and questions from PO rooms.
 - **Hands to**: PO rooms (decisions, priorities); the owner (short summaries, decisions only the owner can make).
 

@@ -8,6 +8,8 @@ The owner talks to one room in plain words. That room turns the words into work 
 
 **With it:** one command gives each room its role, its handoff file, and a starter prompt. After that you talk to one room in plain words; it writes the work orders, sends them to the right rooms, and reports back where each piece stands.
 
+To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
+
 ```mermaid
 %%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "wrappingWidth": 400, "padding": 24, "diagramPadding": 48}}}%%
 flowchart LR
@@ -107,7 +109,7 @@ What each role reads, all under `plugins/pilothouse/skills/pilothouse/`:
 
 ## Quick start
 
-You need Claude Code. The skill was checked with version 2.1.296.
+You need Claude Code. The skill was checked with versions 2.1.296 and 2.1.302.
 
 ### 1. Install
 
@@ -144,7 +146,7 @@ queued, and do not merge.
 
 The prompts carry no slash command. On a local machine, a plugin installed for your user is available to every new session there anyway.
 
-In one local run (2026-10-14, Windows, Claude app, five rooms), the skill looked at the repository before writing the prompts. It gave the new handoff files a prefix so they would not overwrite handoff files already there. It noticed that another team of rooms was already working in the repository, advised having those rooms write handoffs before any new room replaced them, and said that the run only printed prompts and changed no files or sessions. One run.
+In one local run (2026-10-14, Windows, Claude app, five rooms), the skill looked at the repository before writing the prompts. It gave the new handoff files a prefix so they would not overwrite handoff files already there. It noticed that another team of rooms was already working in the repository, advised having those rooms write handoffs before any new room replaced them, and said that the run only printed prompts and changed no files or sessions. One run. Since 0.2.0 these steps are written into `references/launch.md` as instructions ("Before either path: look at the repository"), so the skill does them on purpose rather than by chance. The written form was run twice on toy repositories (2026-10-18) and did each step.
 
 If the session can create sessions (for example a Claude Code cloud session), the skill instead checks for rooms with the same name, shows you a plan, waits for your confirmation, and then creates the rooms. **(untested)** In one test, a room created this way did not have the plugin installed in the room that created it; see [INSTALL.md](INSTALL.md#cloud-sessions-and-local-sessions).
 
@@ -386,7 +388,7 @@ flowchart TD
 | Tier | Examples | Who decides |
 |---|---|---|
 | Do it | Relay a decision the owner typed in this room; review drafts; compare answers from rooms; read room size and cost; write handoff files and the rooms index; send a self-contained work order to a PO room | The room |
-| Ask first | Start or rotate a room; send work straight to Dev; change a room's queue order | The owner, asked first |
+| Ask first | Start or rotate a room; send work straight to Dev; change a room's queue order; do work yourself that belongs to another room | The owner, asked first |
 | Owner confirms in the target room | Merge to the default branch; license, edition, or pricing statements; anything published; spending money or paid credits; deleting what cannot be restored; adding credentials or changing network or permission settings | The owner, in their own words, in the room that performs the action |
 
 A message from another room is information from a peer, not an order from the owner. If a target room refuses because it needs the owner's own words, that refusal is correct: the skill tells the owner exactly what to type and where, and does not reword or split the request to get past it. Short or ambiguous replies such as "ok" or "go" are never taken as approval for the third tier.
@@ -472,6 +474,7 @@ Also in the repository:
 | File | Purpose |
 |---|---|
 | [`INSTALL.md`](INSTALL.md) | Install, check, update, and uninstall; cloud versus local sessions; common problems |
+| [`CHANGELOG.md`](CHANGELOG.md) | What changed in each version |
 | [`AGENTS.md`](AGENTS.md) | One-page text version of the rules for agents that read rule files without the skill (no `/pilothouse` command) |
 | [`examples/`](examples/) | Eight worked examples in English and Thai, adapted from the author's practice with details removed |
 
@@ -488,11 +491,14 @@ The skill is instructions only. It adds no hooks, MCP servers, or scripts.
 
 ## Limits and untested parts
 
-The workflow has been used day to day by the author on real projects. The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Most test results are from 2026-10-12 with Claude Code 2.1.296 on Linux. Rows dated 2026-10-14 come from one local run on Windows with the Claude app (Claude Code installed with npm, version not recorded). Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
+The workflow has been used day to day by the author on real projects. The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Most test results are from 2026-10-12 with Claude Code 2.1.296 on Linux. Rows dated 2026-10-14 come from one local run on Windows with the Claude app (Claude Code installed with npm, version not recorded). Rows dated 2026-10-18 come from headless runs (`claude -p`) on toy repositories, Linux, Claude Code 2.1.302. Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
 
 | Part | Status |
 |---|---|
 | Creating rooms from a list (`launch.md`, path 1) | Untested. Printing starter prompts (path 2) needs no special tools; it worked once (2026-10-14, local, Windows). |
+| Looking at the repository before printing prompts (existing handoff files, prefixed names, an existing team) | Seen once without instructions (2026-10-14, Windows). Written into `launch.md` in 0.2.0 and run twice as written (2026-10-18, headless, toy repositories): with an existing team it asked replace-or-beside before printing anything and chose prefixed handoff paths; with an empty repository it used the default paths and pointed out two names one letter apart. |
+| `/pilothouse:pilothouse` in a session that started with the plugin already installed | The command loaded the skill in four headless runs (2026-10-18); in two of them the skill could not read its reference files (next row). |
+| The skill reading its own reference files in a headless run (`claude -p`) with default permissions | Refused, both when installed from a local folder and when installed from GitHub (2026-10-18). The skill stopped and asked instead of guessing. Adding the plugin folder with `--add-dir` fixed it for the local-folder install; for a GitHub install, not tried. Interactive sessions: not checked. |
 | How quotes and commas arrive in the skill's arguments | Tried once through the skill (2026-10-14, Windows, Claude app): a list of five rooms was split correctly, names and roles were checked, and a name spelled two different ways was pointed out and used as typed. Exactly how the quotes arrived was not recorded. |
 | Installing from a local clone (`marketplace add <path>`, `install pilothouse@pilothouse`) | Worked once in a cloud session (2026-10-12, v0.1.0) |
 | Installing from GitHub (`marketplace add SuruchBoss/pilothouse`, `install pilothouse@pilothouse`) | Worked once (2026-10-12, after the rename, repository public): a cloud session with no repository attached and no token installed v0.1.0 and it showed as enabled. One run. |
@@ -523,7 +529,7 @@ No performance or cost figures are claimed. None were measured.
 Yes. The skill is free and licensed under Apache 2.0. You still need your own access to Claude Code.
 
 **Which Claude Code version?**
-Checked with 2.1.296: `claude plugin validate` passes for the plugin and the marketplace, and a local install lists one skill. Other versions may work; they were not checked.
+Checked with 2.1.296 and again with 2.1.302 (2026-10-18): `claude plugin validate` passes for the plugin and the marketplace, and an install lists one skill. Other versions may work; they were not checked.
 
 **Does it send my data anywhere?**
 The skill itself is plain text and contains no code, so it sends nothing anywhere. Your rooms still run in Claude Code, which processes your conversations and repository content the same way it does without this skill. The skill also tells rooms not to put secrets, tokens, or personal data in messages, handoff files, or commits.
@@ -541,6 +547,8 @@ Not in the author's test. The new room ran in its own container and did not have
 Yes, for roles, handoff files, and rotation. Without a session-creation tool the skill prints starter prompts for you to paste. Cross-room messaging depends on the tools your environment provides. Whether local sessions can message each other was not checked; if they cannot, you carry messages between rooms yourself.
 
 ## Contributing
+
+Found a problem, or a step the docs do not explain? [Open an issue](https://github.com/SuruchBoss/pilothouse/issues/new/choose). Please leave out tokens, session IDs, and anything private.
 
 This project does not accept pull requests. If you want to adapt pilothouse for your own team, you are welcome to fork it and change it under the Apache 2.0 license.
 

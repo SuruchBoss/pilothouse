@@ -2,7 +2,7 @@
 
 [ภาษาไทย](INSTALL.th.md)
 
-pilothouse is a skill for **Claude Code**. These steps were run with Claude Code **2.1.296** on Linux. One local run on Windows with the Claude app (2026-10-14, Claude Code installed with npm, version not recorded) is noted where it applies. Other versions and other operating systems were not checked. No claim is made that it works with other agents or tools; for agents that only read rule files, [AGENTS.md](AGENTS.md) is a short text version without the skill's commands **(untested with any agent)**.
+pilothouse is a skill for **Claude Code**. These steps were run with Claude Code **2.1.296** on Linux, and the marketplace install was run again with **2.1.302** (2026-10-18). One local run on Windows with the Claude app (2026-10-14, Claude Code installed with npm, version not recorded) is noted where it applies. Other versions and other operating systems were not checked. No claim is made that it works with other agents or tools; for agents that only read rule files, [AGENTS.md](AGENTS.md) is a short text version without the skill's commands **(untested with any agent)**.
 
 ## Option 1: from the marketplace (recommended)
 
@@ -78,6 +78,7 @@ Copied folder: delete the `pilothouse` folder you copied.
 | `/pilothouse` runs a different command | Another command already uses the name | Use `/pilothouse:pilothouse` |
 | `Unknown skill`, or the skill does not seem to load, right after installing | Skills load when a session starts; this one started before the install | Start a new session. `/reload-plugins` may also work **(untested)** |
 | `claude plugin list` is empty after `marketplace add` | `marketplace add` only adds the catalog | Run `claude plugin install pilothouse@pilothouse` |
+| In a headless run (`claude -p`) the skill says it cannot read `references/launch.md` or another of its own files | Default permissions refuse reads outside the working directory, including the plugin's own folder (seen 2026-10-18 with a local-folder install and with a GitHub install) | Add the plugin folder with `--add-dir`. That worked for a local-folder install; a GitHub install keeps the files under `~/.claude/plugins/cache/pilothouse/`, which was not tried **(untested)** |
 | A room created by another room cannot use `/pilothouse:pilothouse` | It started without the plugin, in its own container | Rely on `AGENTS.md` in the repository, or install the skill before the room starts **(untested)** |
 | A hook commits or pushes files you made while testing | Some setups run a hook that commits untracked files when a room stops | List those files in `.git/info/exclude`; git then ignores them without a change to the repository |
 | `/pilothouse:pilothouse "a" dev, "b" qa` stops and asks | A role is misspelled, a name repeats, or a role is missing | Fix the list; roles are `teamlead`, `po`, `dev`, `uxui`, `qa`, `coordinator` |

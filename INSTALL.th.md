@@ -2,7 +2,7 @@
 
 [English](INSTALL.md)
 
-pilothouse เป็น skill ของ **Claude Code** ขั้นตอนข้างล่างรันจริงกับ Claude Code **2.1.296** บน Linux และมีการรันในเครื่องบน Windows กับแอป Claude หนึ่งครั้ง (14 ต.ค. 2026 ติดตั้ง Claude Code ด้วย npm ไม่ได้จดเวอร์ชัน) ซึ่งบอกไว้ตรงที่เกี่ยวข้อง เวอร์ชันอื่นและระบบปฏิบัติการอื่นยังไม่ได้ตรวจ ไม่ได้อ้างว่าใช้กับเอเจนต์หรือเครื่องมืออื่นได้ สำหรับเอเจนต์ที่อ่านแค่ไฟล์กฎ มี [AGENTS.md](AGENTS.md) เป็นฉบับข้อความสั้นที่ไม่มีคำสั่งของ skill **(ยังไม่ได้ทดสอบกับเอเจนต์ใด)**
+pilothouse เป็น skill ของ **Claude Code** ขั้นตอนข้างล่างรันจริงกับ Claude Code **2.1.296** บน Linux และติดตั้งจาก marketplace ซ้ำกับ **2.1.302** (18 ต.ค. 2026) และมีการรันในเครื่องบน Windows กับแอป Claude หนึ่งครั้ง (14 ต.ค. 2026 ติดตั้ง Claude Code ด้วย npm ไม่ได้จดเวอร์ชัน) ซึ่งบอกไว้ตรงที่เกี่ยวข้อง เวอร์ชันอื่นและระบบปฏิบัติการอื่นยังไม่ได้ตรวจ ไม่ได้อ้างว่าใช้กับเอเจนต์หรือเครื่องมืออื่นได้ สำหรับเอเจนต์ที่อ่านแค่ไฟล์กฎ มี [AGENTS.md](AGENTS.md) เป็นฉบับข้อความสั้นที่ไม่มีคำสั่งของ skill **(ยังไม่ได้ทดสอบกับเอเจนต์ใด)**
 
 ## ทางที่ 1: ติดตั้งจาก marketplace (แนะนำ)
 
@@ -78,6 +78,7 @@ claude plugin marketplace remove pilothouse
 | `/pilothouse` ไปเรียกคำสั่งอื่น | มีคำสั่งอื่นใช้ชื่อนี้อยู่แล้ว | ใช้ `/pilothouse:pilothouse` |
 | ได้ `Unknown skill` หรือ skill ไม่โหลดหลังติดตั้ง | skill โหลดตอนเริ่ม session และ session นี้เปิดก่อนติดตั้ง | เปิด session ใหม่ หรือลอง `/reload-plugins` **(untested)** |
 | `claude plugin list` ว่างหลัง `marketplace add` | `marketplace add` แค่เพิ่มแคตตาล็อก | รัน `claude plugin install pilothouse@pilothouse` |
+| ตอนรันแบบ headless (`claude -p`) skill บอกว่าอ่าน `references/launch.md` หรือไฟล์อื่นของตัวเองไม่ได้ | สิทธิ์ตั้งต้นไม่ให้อ่านนอกโฟลเดอร์ทำงาน รวมถึงโฟลเดอร์ของ plugin เอง (เจอ 18 ต.ค. 2026 ทั้งตอนติดตั้งจากโฟลเดอร์ในเครื่องและจาก GitHub) | เพิ่มโฟลเดอร์ plugin ด้วย `--add-dir` วิธีนี้ใช้ได้กับการติดตั้งจากโฟลเดอร์ในเครื่อง ส่วนการติดตั้งจาก GitHub ไฟล์อยู่ใต้ `~/.claude/plugins/cache/pilothouse/` ยังไม่ได้ลอง **(untested)** |
 | ห้องที่อีกห้องสร้างให้ใช้ `/pilothouse:pilothouse` ไม่ได้ | ห้องนั้นเริ่มโดยไม่มี plugin และอยู่คนละ container | ใช้ `AGENTS.md` ใน repository หรือติดตั้ง skill ก่อนห้องเริ่ม **(untested)** |
 | hook commit หรือ push ไฟล์ที่สร้างไว้ตอนทดสอบ | บางระบบมี hook ที่ commit ไฟล์ untracked ตอนห้องหยุด | ใส่ไฟล์เหล่านั้นใน `.git/info/exclude` git จะไม่สนใจไฟล์โดยไม่ต้องแก้ repository |
 | `/pilothouse:pilothouse "a" dev, "b" qa` หยุดถาม | สะกดบทบาทผิด ชื่อห้องซ้ำ หรือไม่ได้ใส่บทบาท | แก้รายการ บทบาทคือ `teamlead`, `po`, `dev`, `uxui`, `qa`, `coordinator` |
