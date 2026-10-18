@@ -8,7 +8,7 @@
 - `AGENTS.md`: the same rule for agents without the skill, in four sentences.
 - README and README.th: the 2026-10-14 findings and the new step.
 
-Everything in 0.1.0 is unchanged and stays in the free edition.
+Nothing was removed from 0.1.0.
 
 ## 0.1.0 (2026-10-12)
 
