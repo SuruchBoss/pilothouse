@@ -30,6 +30,9 @@ Updated: <YYYY-MM-DD HH:MM, timezone> by <room name>
 ## Decisions made in this role, not yet reviewed
 - <decision>: <reason>
 
+## Disagreements recorded
+- <decision>: this room proposed <what> because <reason>; decided by <who>, <date>. Keep while it still applies; delete when it no longer does.
+
 ## Do not
 - <anything the next room must avoid, with the reason>
 
