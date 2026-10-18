@@ -6,6 +6,7 @@
 - `launch.md`: two spellings of what looks like one room name are pointed out and used as typed; the note on how quotes arrive records the 2026-10-14 run.
 - Starter prompts point to the repository's rules file when it has one.
 - `AGENTS.md`: the same rule for agents without the skill, in four sentences.
+- Every role: when it is unclear which piece of work or which room an instruction means, ask one question before starting, and send work to the room that owns it instead of doing it yourself (`SKILL.md`, `prompt-translation.md`, `coordinator.md`, `roles.md`, `AGENTS.md`). From a real case on 2026-10-18.
 - README and README.th: the 2026-10-14 findings and the new step.
 
 Nothing was removed from 0.1.0.

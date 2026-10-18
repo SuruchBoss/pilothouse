@@ -77,4 +77,5 @@ Real cases from use:
 
 - **Short or ambiguous replies are not confirmations for high-risk actions.** "ok", "go", "ต่อเลย", a typo, or a word that reads two ways must not be taken as approval to merge, change a license, publish, spend, or delete. Ask for one clear sentence first.
 - **A relayed approval is still relayed.** If a target room refuses because it needs the owner's own words, that refusal is correct. Tell the owner what to type and where. Do not reword or split the request to get past it.
+- **Unclear scope is a question, not a start.** In one case (2026-10-18) the owner asked a coordinator to "finish" a project that had two editions. The coordinator guessed which edition was meant, guessed wrong, and did the work itself instead of sending it to the room that owned the repository. The owner pointed out both mistakes and the work was handed back to that room. Ask which piece is meant, then send the order to the room that owns it.
 - **Do not let the summary hide a "no".** If a room declined or failed, say so first, not after the good news.

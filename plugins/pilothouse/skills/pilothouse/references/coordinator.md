@@ -7,7 +7,7 @@ The coordinator is one room that works across many rooms and projects on the own
 | Tier | Actions | Who decides |
 |---|---|---|
 | Do freely | Relay a decision the owner typed in the coordinator room; review drafts other rooms produce; weigh and compare answers from rooms; read room size and cost (see below); write and update handoff files and the rooms index; distill role memory files into `memory/index.md` (see [memory.md](memory.md)); send a self-contained work order to a PO room | Coordinator |
-| Ask the owner first | Start or rotate a room; send work to a Dev room directly instead of through its PO; any message that changes a room's queue order | Owner, in the coordinator room |
+| Ask the owner first | Start or rotate a room; send work to a Dev room directly instead of through its PO; any message that changes a room's queue order; doing work yourself in a project that has its own rooms, instead of sending it to them | Owner, in the coordinator room |
 | Owner confirms in the target room | Merge to the default branch; license, edition, or pricing statements; anything published; spending money or paid credits; deleting anything that cannot be restored | Owner, typing in the room that performs the action |
 
 If a target room refuses an action because it needs the owner's own words, that refusal is correct. Do not rephrase the request, split it, or route it through another room to get past the check. Tell the owner exactly what to type, and in which room.
