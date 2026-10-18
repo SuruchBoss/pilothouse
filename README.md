@@ -8,6 +8,8 @@ The owner talks to one room in plain words. That room turns the words into work 
 
 **With it:** one command gives each room its role, its handoff file, and a starter prompt. After that you talk to one room in plain words; it writes the work orders, sends them to the right rooms, and reports back where each piece stands.
 
+To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
+
 ```mermaid
 %%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "wrappingWidth": 400, "padding": 24, "diagramPadding": 48}}}%%
 flowchart LR
@@ -107,7 +109,7 @@ What each role reads, all under `plugins/pilothouse/skills/pilothouse/`:
 
 ## Quick start
 
-You need Claude Code. The skill was checked with version 2.1.296.
+You need Claude Code. The skill was checked with versions 2.1.296 and 2.1.302.
 
 ### 1. Install
 
@@ -527,7 +529,7 @@ No performance or cost figures are claimed. None were measured.
 Yes. The skill is free and licensed under Apache 2.0. You still need your own access to Claude Code.
 
 **Which Claude Code version?**
-Checked with 2.1.296: `claude plugin validate` passes for the plugin and the marketplace, and a local install lists one skill. Other versions may work; they were not checked.
+Checked with 2.1.296 and again with 2.1.302 (2026-10-18): `claude plugin validate` passes for the plugin and the marketplace, and an install lists one skill. Other versions may work; they were not checked.
 
 **Does it send my data anywhere?**
 The skill itself is plain text and contains no code, so it sends nothing anywhere. Your rooms still run in Claude Code, which processes your conversations and repository content the same way it does without this skill. The skill also tells rooms not to put secrets, tokens, or personal data in messages, handoff files, or commits.
@@ -545,6 +547,8 @@ Not in the author's test. The new room ran in its own container and did not have
 Yes, for roles, handoff files, and rotation. Without a session-creation tool the skill prints starter prompts for you to paste. Cross-room messaging depends on the tools your environment provides. Whether local sessions can message each other was not checked; if they cannot, you carry messages between rooms yourself.
 
 ## Contributing
+
+Found a problem, or a step the docs do not explain? [Open an issue](https://github.com/SuruchBoss/pilothouse/issues/new/choose). Please leave out tokens, session IDs, and anything private.
 
 This project does not accept pull requests. If you want to adapt pilothouse for your own team, you are welcome to fork it and change it under the Apache 2.0 license.
 

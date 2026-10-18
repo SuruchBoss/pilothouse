@@ -2,7 +2,7 @@
 
 [ภาษาไทย](INSTALL.th.md)
 
-pilothouse is a skill for **Claude Code**. These steps were run with Claude Code **2.1.296** on Linux. One local run on Windows with the Claude app (2026-10-14, Claude Code installed with npm, version not recorded) is noted where it applies. Other versions and other operating systems were not checked. No claim is made that it works with other agents or tools; for agents that only read rule files, [AGENTS.md](AGENTS.md) is a short text version without the skill's commands **(untested with any agent)**.
+pilothouse is a skill for **Claude Code**. These steps were run with Claude Code **2.1.296** on Linux, and the marketplace install was run again with **2.1.302** (2026-10-18). One local run on Windows with the Claude app (2026-10-14, Claude Code installed with npm, version not recorded) is noted where it applies. Other versions and other operating systems were not checked. No claim is made that it works with other agents or tools; for agents that only read rule files, [AGENTS.md](AGENTS.md) is a short text version without the skill's commands **(untested with any agent)**.
 
 ## Option 1: from the marketplace (recommended)
 

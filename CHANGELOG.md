@@ -10,6 +10,9 @@
 - README and README.th: the 2026-10-14 findings and the new step.
 - README, INSTALL: in headless runs (`claude -p`) with default permissions the skill could not read its own reference files; the workaround and what is still untested are written down.
 
+- Problems can be reported as GitHub issues; a short issue template asks for version, OS, install method, and session type.
+- README: a link to Quick start near the top; checked again with Claude Code 2.1.302.
+
 Nothing was removed from 0.1.0.
 
 ## 0.1.0 (2026-10-12)
