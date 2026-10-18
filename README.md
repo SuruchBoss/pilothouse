@@ -12,9 +12,9 @@ You stop carrying messages. You keep the decisions.
 - A team lead turned a plain request into a work order, asked the owner one question, and the receiving room replied within tens of seconds.
 - Told "merge it" by another room, a team lead refused and said the owner must confirm in the room that merges.
 - Before printing starter prompts, the launch step looked at the repository, noticed an existing team, and asked whether to replace it or work beside it.
-- A QA room asked to mark an untested build as passed objected once, with reasons, and offered a smaller test run instead.
+- A QA room asked to mark an untested build as passed objected once, with reasons, and offered a smaller test run instead. It did not write the disagreement into its handoff file: that run had no permission to write files.
 
-Not tried yet: a room creating other rooms through the skill, and the ownership rules with a real team over several days.
+Not tried yet: a room writing a disagreement into its handoff file, a room creating other rooms through the skill, and the ownership rules with a real team over several days.
 
 To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
 
