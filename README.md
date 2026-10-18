@@ -1,14 +1,28 @@
 # pilothouse
 
+**Stop being the messenger between your AI sessions.**
+
+It is late, and you have four Claude Code sessions open. You typed "clean up the duplicated code" into one of them, and it started straight away. Halfway through, it rewrote the validation code you meant to keep out of it. You explain again, it fixes it, and you pay for the work twice: once to do it, once to undo it. The QA session is still testing yesterday's build, because nobody told it about the new one. Nobody, in this case, is you. You are not running a team. You are carrying its mail.
+
+pilothouse is written for the other version of that evening. You tell one room, in plain words, what you want. It writes that down as a work order (the goal, what "done" means, what not to touch) and sends it to the room whose job it is. If it is not clear which work you mean, the room asks you one question before it starts, not after. The PO room asks whether the work is worth doing and whether the acceptance criteria are complete. The QA room says "not ready" when it is not. A room that thinks you are about to make a mistake says so once, with its reasons, writes the disagreement down, and then does what you decide. Merges, licenses, anything public, and money still wait for your own words.
+
+You stop carrying messages. You keep the decisions.
+
+**What has actually been tried** (by the author, once or twice each, mostly on toy repositories; details in [Limits and untested parts](#limits-and-untested-parts)):
+- A team lead turned a plain request into a work order, asked the owner one question, and the receiving room replied within tens of seconds.
+- Told "merge it" by another room, a team lead refused and said the owner must confirm in the room that merges.
+- Before printing starter prompts, the launch step looked at the repository, noticed an existing team, and asked whether to replace it or work beside it.
+- A QA room asked to mark an untested build as passed objected once, with reasons, and offered a smaller test run instead. It did not write the disagreement into its handoff file: that run had no permission to write files.
+
+Not tried yet: a room writing a disagreement into its handoff file, a room creating other rooms through the skill, and the ownership rules with a real team over several days.
+
+To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
+
+### How it works
+
 A Claude Code skill for running several sessions ("rooms") as one team. Each room holds one role: an optional coordinator acting for the owner across rooms, a team lead, a PO, a Dev, a UX/UI, and a QA room. They work on the same repository and pass work to each other. The name comes from a ship's pilothouse, where the course is set: the owner gives directions from one place, and each room is a crew member with its own job.
 
 The owner talks to one room in plain words. That room turns the words into work orders, sends them to the right rooms, and reports back. Decisions that matter (merging, licensing, anything published, money) stay with the owner.
-
-**Without it:** you open several sessions, type a role into each by hand, carry work between them yourself, and lose track of which room is waiting on which.
-
-**With it:** one command gives each room its role, its handoff file, and a starter prompt. After that you talk to one room in plain words; it writes the work orders, sends them to the right rooms, and reports back where each piece stands.
-
-To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
 
 ```mermaid
 %%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "wrappingWidth": 400, "padding": 24, "diagramPadding": 48}}}%%
