@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 (unreleased)
+## 0.4.0 (2026-11-21)
 
 Three rules from about a month of use with one project's team of rooms. Each comes from a failure seen there. The rules as written are untested.
 
