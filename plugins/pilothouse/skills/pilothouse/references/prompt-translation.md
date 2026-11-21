@@ -42,7 +42,7 @@ Assumptions: <anything this room filled in that the owner did not say; "none" if
 1. Write the goal once, in the owner's words.
 2. Decide which roles it needs and in what order. Typical order: PO writes or updates the ticket → Dev implements → QA tests the named build → PO reviews.
 3. Write one order per role. Each order names what it waits for ("start after the PO's ticket exists").
-4. Send the first order only. Later orders go out when what they wait for has arrived, unless the owner asked for parallel work.
+4. Send the first order only. Later orders go out when what they wait for has arrived, unless the owner asked for parallel work. An order that starts building also waits for the owner to confirm the plan in their own words.
 
 The PO owns the queue. The team lead or coordinator sends new work to the PO, not to Dev directly, unless the owner says to skip the PO for this item.
 
@@ -78,4 +78,6 @@ Real cases from use:
 - **Short or ambiguous replies are not confirmations for high-risk actions.** "ok", "go", "ต่อเลย", a typo, or a word that reads two ways must not be taken as approval to merge, change a license, publish, spend, or delete. Ask for one clear sentence first.
 - **A relayed approval is still relayed.** If a target room refuses because it needs the owner's own words, that refusal is correct. Tell the owner what to type and where. Do not reword or split the request to get past it.
 - **Unclear scope is a question, not a start.** In one case (2026-10-18) the owner asked a coordinator to "finish" a project that had two editions. The coordinator guessed which edition was meant, guessed wrong, and did the work itself instead of sending it to the room that owned the repository. The owner pointed out both mistakes and the work was handed back to that room. Ask which piece is meant, then send the order to the room that owns it.
+- **Connected is not confirmed.** Once rooms can message each other, it is tempting to send every room its part at once. Send the PO's planning order first and wait for the owner to confirm the plan before any order that starts building. If the owner asked for a design or a decision first, the first order is exactly that. (A real case is in the "Three checks from real use" section of [roles.md](roles.md).)
+- **"The tests pass" is not "ready".** In a summary, report readiness only after someone outside the team has tried the main path on a real device; otherwise list it under Waiting.
 - **Do not let the summary hide a "no".** If a room declined or failed, say so first, not after the good news.
