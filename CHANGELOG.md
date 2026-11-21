@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- README and README.th: shorter (594 and 587 lines to 159 each), with 0.4.0 and install on the first screen. Test results and the "Limits and untested parts" table moved, unchanged, to `docs/TESTED.md` and `docs/TESTED.th.md`.
+
 ## 0.4.0 (2026-11-21)
 
 Three rules from failures seen in the author's rooms: the merge check with one project's team of rooms over about a month, the other two in short setups on the author's other projects. The rules as written are untested.
