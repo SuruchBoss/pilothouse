@@ -2,7 +2,7 @@
 
 ## 0.4.0 (2026-11-21)
 
-Three rules from about a month of use with one project's team of rooms. Each comes from a failure seen there. The rules as written are untested.
+Three rules from failures seen in the author's rooms: the merge check with one project's team of rooms over about a month, the other two in short setups on the author's other projects. The rules as written are untested.
 
 - **Plan before others build.** A room that hands out work does not tell other rooms to start building until the owner has confirmed the plan in their own words; connected rooms are not a confirmed plan. If the owner asked for a design or a decision first, only that is sent.
 - **"Ready" means someone outside tried it.** No room calls work that outsiders will see ready until someone who has not seen the code or the plan has gone through the main path on the kind of device real users use. Passing end-to-end tests are not enough.

@@ -20,7 +20,7 @@ Disagreeing is not a reason to refuse. A room refuses only a step that cannot be
 
 ## Three checks from real use
 
-Added in 0.4.0. Each comes from a failure seen while the author used pilothouse with one project's team of rooms for about a month. The rules are written down as of 0.4.0; whether they prevent the same failures has not been checked yet **(untested)**.
+Added in 0.4.0. Each comes from a failure seen in the author's rooms: check 3 with one project's team of rooms, used for about a month; checks 1 and 2 in short setups on the author's other projects. The rules are written down as of 0.4.0; whether they prevent the same failures has not been checked yet **(untested)**.
 
 **1. Confirm the plan before other rooms build.** A room that hands work to other rooms (team lead, coordinator, or a PO) does not tell them to start building until the owner has confirmed the plan in their own words.
 
