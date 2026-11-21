@@ -1,6 +1,18 @@
 # Changelog
 
-## 0.3.0 (unreleased)
+## 0.4.0 (unreleased)
+
+Three rules from about a month of use with one project's team of rooms. Each comes from a failure seen there. The rules as written are untested.
+
+- **Plan before others build.** A room that hands out work does not tell other rooms to start building until the owner has confirmed the plan in their own words; connected rooms are not a confirmed plan. If the owner asked for a design or a decision first, only that is sent.
+- **"Ready" means someone outside tried it.** No room calls work that outsiders will see ready until someone who has not seen the code or the plan has gone through the main path on the kind of device real users use. Passing end-to-end tests are not enough.
+- **Check the pull request at merge time.** Whoever merges fetches, checks the base branch and the reviewed head commit, and after merging checks the branch for commits that arrived later.
+- Where: the core of each rule in `SKILL.md` (so a room that cannot read the reference files still has it); details and the real cases in a new section of `roles.md`, "Three checks from real use"; role lines in `roles.md`; `coordinator.md`; `prompt-translation.md` (split step and "Watch out for"); starter prompts in `launch.md`; `AGENTS.md`.
+- README and README.th: the evidence now describes the month of use with one team (one person, one project, nothing measured) instead of only toy repositories, and says what is still untested. README, README.th, INSTALL, INSTALL.th: say that the skill is written for and tried only with Claude Code, and that a room is one Claude Code session. A FAQ entry on other tools.
+
+Nothing was removed from 0.3.0.
+
+## 0.3.0 (2026-10-18)
 
 - `roles.md`: a new section, "Owning the work and pushing back". Each room owns the professional quality of its own output, and each role has an **Owns** line with the questions it asks (PO: value, scope, acceptance criteria; Dev: correct, proven, readable; UX/UI: a real user can finish the task; QA: coverage and readiness for production).
 - Pushing back: disagree once with reasons, record it in the handoff file, then follow the decision. Refuse only a step that cannot be undone or puts security at risk, until the owner confirms in their own words. The core is in `SKILL.md` as well, so a room that cannot read the reference files still has it.

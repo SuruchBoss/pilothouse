@@ -8,17 +8,24 @@ pilothouse is written for the other version of that evening. You tell one room, 
 
 You stop carrying messages. You keep the decisions.
 
-**What has actually been tried** (by the author, once or twice each, mostly on toy repositories; details in [Limits and untested parts](#limits-and-untested-parts)):
+**What has actually been tried** (details in [Limits and untested parts](#limits-and-untested-parts)):
+
+- **One real team, about a month.** Since around 2026-10-20 the author has run one project with pilothouse: a team of rooms with PO, Dev, UX/UI, QA, team lead, and a writer room (a role the skill does not define). Roles, work orders, cross-room messages, handoff files, and room rotation were used day to day. One person, one project; no other users so far, and nothing was measured. The three checks added in 0.4.0 come from failures seen there.
+
+The rest were tried by the author once or twice each, mostly on toy repositories:
+
 - A team lead turned a plain request into a work order, asked the owner one question, and the receiving room replied within tens of seconds.
 - Told "merge it" by another room, a team lead refused and said the owner must confirm in the room that merges.
 - Before printing starter prompts, the launch step looked at the repository, noticed an existing team, and asked whether to replace it or work beside it.
 - A QA room asked to mark an untested build as passed objected once, with reasons, and offered a smaller test run instead. It did not write the disagreement into its handoff file: that run had no permission to write files.
 
-Not tried yet: a room writing a disagreement into its handoff file, a room creating other rooms through the skill, and the ownership rules with a real team over several days.
+Not tried yet: anyone else's team, a room writing a disagreement into its handoff file, a room creating other rooms through the skill, and the three checks from 0.4.0 as written. The ownership rules were in the skill during the month of real use, but how often rooms used them was not recorded.
 
 To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
 
 ### How it works
+
+pilothouse is written for **Claude Code** and has only been tried with Claude Code. A "room" is one Claude Code session. [`AGENTS.md`](AGENTS.md) is a short text version for other agents that read rule files; it has not been tried with any of them.
 
 A Claude Code skill for running several sessions ("rooms") as one team. Each room holds one role: an optional coordinator acting for the owner across rooms, a team lead, a PO, a Dev, a UX/UI, and a QA room. They work on the same repository and pass work to each other. The name comes from a ship's pilothouse, where the course is set: the owner gives directions from one place, and each room is a crew member with its own job.
 
@@ -113,6 +120,14 @@ Taken from `references/roles.md`. A small project can merge roles, for example o
 
 Each room also owns the quality of its own output, not just the task it was given: the PO asks whether the work has real value and whether scope and acceptance criteria are complete; QA asks whether the tests cover what users do and whether the build is ready for production. A room that disagrees says so once with reasons, records it in its handoff file, then follows the decision. It refuses only a step that cannot be undone or puts security at risk, until the owner confirms in their own words. Details: the "Owning the work and pushing back" section of `references/roles.md`. **(untested)**
 
+Three checks apply to every room (0.4.0, from real use; the written rules are **untested**):
+
+- **Plan before others build.** A room that hands out work does not tell other rooms to start building until the owner has confirmed the plan in their own words. Connected rooms are not a confirmed plan.
+- **"Ready" means someone outside tried it.** Work that outsiders will see is not called ready until someone who has not seen the code or the plan has gone through the main path on a real device. Passing end-to-end tests are not enough.
+- **Check the pull request at merge time.** Whoever merges checks the base branch and the reviewed head commit, and afterwards looks for commits that arrived later.
+
+Details: the "Three checks from real use" section of `references/roles.md`.
+
 What each role reads, all under `plugins/pilothouse/skills/pilothouse/`:
 
 | Role | Reads |
@@ -125,7 +140,7 @@ What each role reads, all under `plugins/pilothouse/skills/pilothouse/`:
 
 ## Quick start
 
-You need Claude Code. The skill was checked with versions 2.1.296 and 2.1.302.
+You need Claude Code; the skill has not been tried with other tools. It was checked with versions 2.1.296 and 2.1.302.
 
 ### 1. Install
 
@@ -507,7 +522,7 @@ The skill is instructions only. It adds no hooks, MCP servers, or scripts.
 
 ## Limits and untested parts
 
-The workflow has been used day to day by the author on real projects. The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Most test results are from 2026-10-12 with Claude Code 2.1.296 on Linux. Rows dated 2026-10-14 come from one local run on Windows with the Claude app (Claude Code installed with npm, version not recorded). Rows dated 2026-10-18 come from headless runs (`claude -p`) on toy repositories, Linux, Claude Code 2.1.302. Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
+The workflow has been used day to day by the author on real projects, and with one project's team of rooms for about a month (from around 2026-10-20; one person, one project, nothing measured). The table says which parts have been tried and which have not. Untested steps are marked **(untested)** in the reference files. Most test results are from 2026-10-12 with Claude Code 2.1.296 on Linux. Rows dated 2026-10-14 come from one local run on Windows with the Claude app (Claude Code installed with npm, version not recorded). Rows dated 2026-10-18 come from headless runs (`claude -p`) on toy repositories, Linux, Claude Code 2.1.302. Each was a single run. All but the install from GitHub were made before the project was renamed; only the name has changed since.
 
 | Part | Status |
 |---|---|
@@ -515,7 +530,9 @@ The workflow has been used day to day by the author on real projects. The table 
 | Looking at the repository before printing prompts (existing handoff files, prefixed names, an existing team) | Seen once without instructions (2026-10-14, Windows). Written into `launch.md` in 0.2.0 and run twice as written (2026-10-18, headless, toy repositories): with an existing team it asked replace-or-beside before printing anything and chose prefixed handoff paths; with an empty repository it used the default paths and pointed out two names one letter apart. |
 | `/pilothouse:pilothouse` in a session that started with the plugin already installed | The command loaded the skill in four headless runs (2026-10-18); in two of them the skill could not read its reference files (next row). |
 | The skill reading its own reference files in a headless run (`claude -p`) with default permissions | Refused, both when installed from a local folder and when installed from GitHub (2026-10-18). The skill stopped and asked instead of guessing. Adding the plugin folder with `--add-dir` fixed it for the local-folder install; for a GitHub install, not tried. Interactive sessions: not checked. |
-| Owning the work and pushing back (`roles.md`, 0.3.0) | Not yet run with a team. One headless run (2026-10-18, toy repository): a QA room asked by the team lead to mark an untested build as passed could not read the reference files, worked from the core rule in `SKILL.md`, objected once with reasons, named the owner as the one who decides, and offered a smaller test run instead. It did not write its handoff file (no write permission in that run). |
+| Owning the work and pushing back (`roles.md`, 0.3.0) | In the skill during the month with one team; how often rooms used it was not recorded. One headless run (2026-10-18, toy repository): a QA room asked by the team lead to mark an untested build as passed could not read the reference files, worked from the core rule in `SKILL.md`, objected once with reasons, named the owner as the one who decides, and offered a smaller test run instead. It did not write its handoff file (no write permission in that run). |
+| One project's team of rooms over about a month (PO, Dev, UX/UI, QA, team lead, and a writer room the skill does not define) | Used day to day by the author from around 2026-10-20: roles, work orders, cross-room messages, handoff files, and room rotation. One person, one project, Claude Code cloud sessions. No other users, and no time, cost, or quality figures were measured. |
+| The three checks (0.4.0): plan before others build, "ready" means someone outside tried it, check the pull request at merge time | Each written from a failure seen with that team (a PO starting other rooms before the plan was agreed; work reported ready on passing end-to-end tests and then confusing the owner; a merge into the wrong base branch, and commits pushed during review left out of a squash merge). The rules as written: untested. |
 | How quotes and commas arrive in the skill's arguments | Tried once through the skill (2026-10-14, Windows, Claude app): a list of five rooms was split correctly, names and roles were checked, and a name spelled two different ways was pointed out and used as typed. Exactly how the quotes arrived was not recorded. |
 | Installing from a local clone (`marketplace add <path>`, `install pilothouse@pilothouse`) | Worked once in a cloud session (2026-10-12, v0.1.0) |
 | Installing from GitHub (`marketplace add SuruchBoss/pilothouse`, `install pilothouse@pilothouse`) | Worked once (2026-10-12, after the rename, repository public): a cloud session with no repository attached and no token installed v0.1.0 and it showed as enabled. One run. |
@@ -544,6 +561,9 @@ No performance or cost figures are claimed. None were measured.
 
 **Is it free?**
 Yes. The skill is free and licensed under Apache 2.0. You still need your own access to Claude Code.
+
+**Does it work with Cursor, Codex, or other tools?**
+Not tried. The skill was written for and tried only with Claude Code. Agents that read rule files may follow [`AGENTS.md`](AGENTS.md), but it has not been tested with any of them.
 
 **Which Claude Code version?**
 Checked with 2.1.296 and again with 2.1.302 (2026-10-18): `claude plugin validate` passes for the plugin and the marketplace, and an install lists one skill. Other versions may work; they were not checked.

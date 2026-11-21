@@ -10,6 +10,11 @@ The coordinator is one room that works across many rooms and projects on the own
 | Ask the owner first | Start or rotate a room; send work to a Dev room directly instead of through its PO; any message that changes a room's queue order; doing work yourself in a project that has its own rooms, instead of sending it to them | Owner, in the coordinator room |
 | Owner confirms in the target room | Merge to the default branch; license, edition, or pricing statements; anything published; spending money or paid credits; deleting anything that cannot be restored | Owner, typing in the room that performs the action |
 
+Two more rules from use (0.4.0, see "Three checks from real use" in [roles.md](roles.md)):
+
+- A work order that starts building waits until the owner has confirmed the plan in their own words. Connecting rooms is not that confirmation. **(untested as written)**
+- Before passing on a room's "ready" to the owner, check whether someone outside the team has tried the main path on a real device. If not, say so in the summary. **(untested as written)**
+
 If a target room refuses an action because it needs the owner's own words, that refusal is correct. Do not rephrase the request, split it, or route it through another room to get past the check. Tell the owner exactly what to type, and in which room.
 
 ## Room health without waking rooms
