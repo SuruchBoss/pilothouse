@@ -19,7 +19,7 @@ The rest were tried by the author once or twice each, mostly on toy repositories
 - Before printing starter prompts, the launch step looked at the repository, noticed an existing team, and asked whether to replace it or work beside it.
 - A QA room asked to mark an untested build as passed objected once, with reasons, and offered a smaller test run instead. It did not write the disagreement into its handoff file: that run had no permission to write files.
 
-Not tried yet: anyone else's team, a room creating other rooms through the skill, and the three checks from 0.4.0 as written. The ownership rules were in the skill during the month of real use, but how often rooms used them was not recorded.
+Not tried yet: anyone else's team, a room writing a disagreement into its handoff file, a room creating other rooms through the skill, and the three checks from 0.4.0 as written. The ownership rules were in the skill during the month of real use, but how often rooms used them was not recorded.
 
 To try it straight away, go to [Quick start](#quick-start): two install commands and one command to get the rooms' starter prompts.
 
