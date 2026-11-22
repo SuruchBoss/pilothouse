@@ -110,7 +110,7 @@ Assumptions:
     not merge branches
 ```
 
-It went to the PO, not Dev, because the PO owns the queue. "Stay out of" became a testable criterion, and every guess is listed under Assumptions.
+Before the order, the team lead tells you the route in one line, here `PO (ticket) → Dev → QA → PO (review)`, so you see which rooms the work passes through. It went to the PO, not Dev, because the PO owns the queue. "Stay out of" became a testable criterion, and every guess is listed under Assumptions.
 
 If you type "merge it", **nothing is sent**. The team lead tells you which pull requests are open and what to type, in your own words, in the room that merges. More pairs (relaying to the PO, a status check, a summary, a big feature, memory) in [`examples/`](examples/), in English and Thai.
 

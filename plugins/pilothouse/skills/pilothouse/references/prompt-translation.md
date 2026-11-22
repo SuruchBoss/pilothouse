@@ -44,6 +44,8 @@ Assumptions: <anything this room filled in that the owner did not say; "none" if
 3. Write one order per role. Each order names what it waits for ("start after the PO's ticket exists").
 4. Send the first order only. Later orders go out when what they wait for has arrived, unless the owner asked for parallel work. An order that starts building also waits for the owner to confirm the plan in their own words.
 
+**Show the route first.** Before the orders, tell the owner in one line which rooms the work passes through, in order, using the role names above, for example `PO (ticket) → Dev → QA → PO (review)`. If the route depends on what the owner meant, ask the one question first; do not write a route you guessed.
+
 The PO owns the queue. The team lead or coordinator sends new work to the PO, not to Dev directly, unless the owner says to skip the PO for this item.
 
 ## 3. Summarize: rooms' answers → owner
