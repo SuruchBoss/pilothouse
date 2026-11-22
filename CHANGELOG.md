@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Team lead and coordinator: before sending work orders, show the owner one route line (for example `PO (ticket) → Dev → QA → PO (review)`); if the route depends on an unclear request, ask first instead of guessing (`references/prompt-translation.md`, README).
 - README and README.th: shorter (594 and 587 lines to 159 each), with 0.4.0 and install on the first screen. Test results and the "Limits and untested parts" table moved, unchanged, to `docs/TESTED.md` and `docs/TESTED.th.md`.
 
 ## 0.4.0 (2026-11-21)
